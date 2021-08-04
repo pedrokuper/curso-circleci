@@ -11,9 +11,20 @@ jobs:
       - run: npm run build
       - run: chmod +x deploy.sh
       - run: ./deploy.sh
+  production:
+    docker:
+      - image: circleci/node:14.16
+    steps:
+      - checkout
+      - run: chmod +x deploy.sh
+      - run: ./deploy.sh
 
 workflows:
   version: 2.1
   test:
     jobs:
       - test
+      - production:
+          filters:
+            branches:
+              only: prod
