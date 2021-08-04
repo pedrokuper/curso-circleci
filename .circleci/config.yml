@@ -23,6 +23,8 @@ workflows:
     jobs:
       - test
       - production:
+          requires:
+            - test
           filters:
             branches:
               only: prod
